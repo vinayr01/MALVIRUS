@@ -38,6 +38,7 @@ RUN cd /app && \
     /opt/conda/bin/mamba clean --all
 
 ENV PATH /opt/conda/bin:$PATH
+ENV LD_LIBRARY_PATH /opt/conda/envs/malva-env/lib/
 
 RUN echo "conda activate malva-env" >> ~/.profile
 

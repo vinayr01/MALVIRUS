@@ -10,6 +10,7 @@ import { NoDataWithFilters, NoDataWoFilters } from 'utils/tables';
 import GenotypeCell from './GenotypeCell';
 import TableForm from './TableForm';
 import EffectsText from './EffectsText';
+import PathogenicText from './PathogenicText';
 
 const columns = [
   {
@@ -45,6 +46,12 @@ const columns = [
     dataIndex: '_info',
     render: (value) =>
       (value && value.ANN && <EffectsText effects={value.ANN} />) || 'None',
+  },
+  {
+    title: 'Pathogenic',
+    dataIndex: '_info',
+    render: (value) =>
+      (value && value.ANN && <PathogenicText effects={value.ANN} />) || 'No',
   },
   {
     title: 'Genotype',

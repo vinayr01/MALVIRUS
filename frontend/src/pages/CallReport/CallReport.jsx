@@ -39,6 +39,7 @@ function vcf2data(vcf) {
     .filter(Boolean)
     .filter((line) => !line.startsWith('##'));
   const header = pheader.slice(1).split('\t');
+  console.log(data);
   return data
     .map((line) =>
       line
