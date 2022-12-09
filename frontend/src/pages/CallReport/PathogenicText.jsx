@@ -1,11 +1,23 @@
-function isPathogenic(impact) {
-  if (impact == 'HIGH') {
-    return 'Pathogenic';
-  } else if (impact == 'MODERATE') {
-    return 'Likely Pathogenic';
+import { PATHOGENIC, LIKELY_PATHOGENIC, NON_PATHOGENIC } from './utils';
+
+function isPathogenic(effect) {
+  // Format string to same format in pathogenic bins
+  effect = effect.toLowerCase();
+  if (effect.indexOf(' ') >= 0) {
+    effect = effect.replace(/ /g, '_');
   }
 
-  return 'Not Pathogenic';
+  // Check in which pathogenic bin the effect belongs to
+  if (PATHOGENIC.includes(effect)) {
+    return 'Pathogenic';
+  } else if (LIKELY_PATHOGENIC.includes(effect)) {
+    return 'Likely Pathogenic';
+  } else if (NON_PATHOGENIC.includes(effect)) {
+    return 'Not Pathogenic';
+  }
+
+  // Should not reach this
+  return 'N/A';
 }
 
 function PathogenicText({ effects }) {
@@ -14,8 +26,8 @@ function PathogenicText({ effects }) {
     ...new Set(
       effects
         .filter((effect) => effect['Annotation Impact'] !== 'MODIFIER')
-        .map((effect) => effect['Annotation Impact'])
-        .map((impact) => isPathogenic(impact))
+        .map((effect) => effect['Feature Type'])
+        .map((effect) => isPathogenic(effect))
     ),
   ].join(', ');
   return <p>{pathogenicText}</p>;
